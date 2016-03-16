@@ -19,7 +19,7 @@
     "gulpplugin",
     "finder",
     "find",
-    "text"
+    "text",
     "string"
   ],
   "dependencies": {
