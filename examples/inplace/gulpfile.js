@@ -1,12 +1,12 @@
 var gulp = require('gulp');
-/** REMOVE ME **/ var replace = require('../../');
-/** USE ME **/ // var replace = require('gulp-replace');
+/** REMOVE ME **/ var find = require('../../');
+/** USE ME **/ // var find = require('gulp-find');
 
-gulp.task('replace', function() {
+gulp.task('find', function() {
   // Do an in-place replace on file.txt
   return gulp.src('file.txt', { base : './' } )
-    .pipe(replace('roof', 'world'))
+    .pipe(find('roof'))
     .pipe(gulp.dest('./'));
 });
 
-gulp.task('default', ['replace']);
+gulp.task('default', ['find']);

@@ -1,33 +1,33 @@
 {
-  "name": "gulp-replace",
-  "version": "0.5.4",
-  "description": "A string replace plugin for gulp",
+  "name": "gulp-find",
+  "version": "0.0.1",
+  "description": "A string finder plugin for gulp",
   "dependencies": {
     "istextorbinary": "1.0.2",
-    "readable-stream": "^2.0.1",
+    "readable-stream": "^2.0.6",
     "replacestream": "^4.0.0"
   },
   "devDependencies": {
-    "concat-stream": "^1.5.0",
-    "mocha": "^2.1.0",
-    "should": "^7.0.1",
-    "vinyl": "^0.5.0"
+    "concat-stream": "^1.5.1",
+    "mocha": "^2.4.5",
+    "should": "^8.2.2",
+    "vinyl": "^1.1.1"
   },
   "scripts": {
     "test": "mocha"
   },
   "repository": {
     "type": "git",
-    "url": "git://github.com/lazd/gulp-replace.git"
+    "url": "git://github.com/se-panfilov/gulp-find.git"
   },
   "keywords": [
     "gulpplugin",
     "replace"
   ],
-  "author": "Larry Davis <lazdnet@gmail.com>",
+  "author": "Sergey Panfilov <se-panfilov@ya.ru>",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/lazd/gulp-replace/issues"
+    "url": "https://github.com/se-panfilov/gulp-find/issues"
   },
   "engines": {
     "node": ">=0.10"
