@@ -9,24 +9,23 @@ module.exports = function (search, options) {
     objectMode: true,
     transform: function (file, enc, callback) {
       if (file.isNull()) return callback(null, file);
+      var result;
 
       function doReplace() {
         if (file.isStream()) {
+          console.log('Debug: stream');
           file.contents = file.contents.pipe(rs(search));
+          console.log(file.contents);
           return callback(null, file);
         }
 
         if (file.isBuffer()) {
           if (search instanceof RegExp) {
-            //file.contents = new Buffer(String(file.contents).replace(search));
-            file.contents = new Buffer(String(file.contents).find(search));
+            result = String(file.contents).match(search);
+          } else {
+            result = String(file.contents).match(search);
           }
-          else {
-            var chunks = String(file.contents).split(search);
-            var result = chunks.join(',');
-
-            file.contents = new Buffer(result);
-          }
+          file.contents = new Buffer(result.join(','));
           return callback(null, file);
         }
 
