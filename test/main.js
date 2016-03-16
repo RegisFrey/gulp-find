@@ -6,7 +6,7 @@ var fs = require('fs');
 var should = require('should');
 var File = require('vinyl');
 
-describe('gulp-replace', function() {
+describe('gulp-find', function() {
   describe('replacePlugin()', function() {
     it('should replace string on a stream', function(done) {
       var file = new File({
