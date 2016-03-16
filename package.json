@@ -1,7 +1,27 @@
 {
   "name": "gulp-find",
-  "version": "0.1.0",
+  "version": "0.0.9",
   "description": "A string finder plugin for gulp",
+  "main": "index.js",
+  "scripts": {
+    "test": "mocha"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/se-panfilov/gulp-find.git"
+  },
+  "author": "S.Panfilov <se-panfilov@ya.ru> (https://se-panfilov.github.io)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/se-panfilov/gulp-find/issues"
+  },
+  "keywords": [
+    "gulpplugin",
+    "finder",
+    "find",
+    "text"
+    "string"
+  ],
   "dependencies": {
     "readable-stream": "^2.0.6",
     "replacestream": "^4.0.0"
@@ -11,24 +31,5 @@
     "mocha": "^2.4.5",
     "should": "^8.2.2",
     "vinyl": "^1.1.1"
-  },
-  "scripts": {
-    "test": "mocha"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git://github.com/se-panfilov/gulp-find.git"
-  },
-  "keywords": [
-    "gulpplugin",
-    "replace"
-  ],
-  "author": "Sergey Panfilov <se-panfilov@ya.ru>",
-  "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/se-panfilov/gulp-find/issues"
-  },
-  "engines": {
-    "node": ">=0.10"
   }
 }
