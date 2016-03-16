@@ -1,9 +1,8 @@
 {
   "name": "gulp-find",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "description": "A string finder plugin for gulp",
   "dependencies": {
-    "istextorbinary": "1.0.2",
     "readable-stream": "^2.0.6",
     "replacestream": "^4.0.0"
   },
