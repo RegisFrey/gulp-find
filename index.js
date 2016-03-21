@@ -3,7 +3,7 @@
 var Transform = require('readable-stream/transform');
 var rs = require('replacestream');
 
-module.exports = function (search, options) {
+module.exports = function (search) {
   return new Transform({
     objectMode: true,
     transform: function (file, enc, callback) {
@@ -14,17 +14,13 @@ module.exports = function (search, options) {
         var result;
 
         if (file.isStream()) {
-          //TODO (S.Panfilov) check in case of stream
           file.contents = file.contents.pipe(rs(search));
-          console.log(file.contents);
-          return callback(null, file);
         } else if (file.isBuffer()) {
           result = String(file.contents).match(search);
           file.contents = new Buffer(result.join(','));
-          return callback(null, file);
         }
 
-        callback(null, file);
+        return callback(null, file);
       }
 
       doSearch();
