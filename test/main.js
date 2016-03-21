@@ -1,7 +1,7 @@
 'use strict';
 
 var concatStream = require('concat-stream');
-var replacePlugin = require('../');
+var findPlugin = require('../');
 var fs = require('fs');
 var should = require('should');
 var File = require('vinyl');
@@ -26,20 +26,25 @@ describe('gulp-find.', function () {
     });
   }
 
+  var expected = {
+    helloworld: 'test/expected/helloworld.txt',
+    hellofarm: 'test/expected/hellofarm.txt'
+  };
+
   describe('Stream checks.', function () {
 
     describe('String checks.', function () {
 
-      it('Find string', function (done) {//TODO (S.Panfilov)
+      it('Find string', function (done) {
         var file = makeFile();
+        var stream = findPlugin('world', 'person');
 
-        var stream = replacePlugin('world', 'person');
         stream.on('data', function (newFile) {
           should.exist(newFile);
           should.exist(newFile.contents);
 
           newFile.contents.pipe(concatStream({encoding: 'string'}, function (data) {
-            data.should.equal(fs.readFileSync('test/expected/helloworld.txt', 'utf8'));
+            data.should.equal(fs.readFileSync(expected.helloworld, 'utf8'));
             done();
           }));
         });
@@ -50,16 +55,16 @@ describe('gulp-find.', function () {
 
       it('Find string with a function', function (done) {
         var file = makeFile();
-
-        var stream = replacePlugin('world', function () {
+        var stream = findPlugin('world', function () {
           return 'person';
         });
+
         stream.on('data', function (newFile) {
           should.exist(newFile);
           should.exist(newFile.contents);
 
           newFile.contents.pipe(concatStream({encoding: 'string'}, function (data) {
-            data.should.equal(fs.readFileSync('test/expected/helloworld.txt', 'utf8'));
+            data.should.equal(fs.readFileSync(expected.helloworld, 'utf8'));
             done();
           }));
         });
@@ -77,7 +82,7 @@ describe('gulp-find.', function () {
           'duck',
           'person'
         ];
-        var stream = replacePlugin('world', function () {
+        var stream = findPlugin('world', function () {
           return replacements.shift();
         });
         stream.on('data', function (newFile) {
@@ -85,7 +90,7 @@ describe('gulp-find.', function () {
           should.exist(newFile.contents);
 
           newFile.contents.pipe(concatStream({encoding: 'string'}, function (data) {
-            data.should.equal(fs.readFileSync('test/expected/hellofarm.txt', 'utf8'));
+            data.should.equal(fs.readFileSync(expected.hellofarm, 'utf8'));
             done();
           }));
         });
@@ -101,13 +106,13 @@ describe('gulp-find.', function () {
       it('Find regex', function (done) {
         var file = makeFile();
 
-        var stream = replacePlugin(/world/g, 'person');
+        var stream = findPlugin(/world/g, 'person');
         stream.on('data', function (newFile) {
           should.exist(newFile);
           should.exist(newFile.contents);
 
           newFile.contents.pipe(concatStream({encoding: 'string'}, function (data) {
-            data.should.equal(fs.readFileSync('test/expected/helloworld.txt', 'utf8'));
+            data.should.equal(fs.readFileSync(expected.helloworld, 'utf8'));
             done();
           }));
         });
@@ -119,7 +124,7 @@ describe('gulp-find.', function () {
       it('Find regex with a function', function (done) {
         var file = makeFile();
 
-        var stream = replacePlugin(/world/g, function () {
+        var stream = findPlugin(/world/g, function () {
           return 'person';
         });
         stream.on('data', function (newFile) {
@@ -127,7 +132,7 @@ describe('gulp-find.', function () {
           should.exist(newFile.contents);
 
           newFile.contents.pipe(concatStream({encoding: 'string'}, function (data) {
-            data.should.equal(fs.readFileSync('test/expected/helloworld.txt', 'utf8'));
+            data.should.equal(fs.readFileSync(expected.helloworld, 'utf8'));
             done();
           }));
         });
@@ -145,7 +150,7 @@ describe('gulp-find.', function () {
           'duck',
           'person'
         ];
-        var stream = replacePlugin(/world/g, function () {
+        var stream = findPlugin(/world/g, function () {
           return replacements.shift();
         });
         stream.on('data', function (newFile) {
@@ -153,7 +158,7 @@ describe('gulp-find.', function () {
           should.exist(newFile.contents);
 
           newFile.contents.pipe(concatStream({encoding: 'string'}, function (data) {
-            data.should.equal(fs.readFileSync('test/expected/hellofarm.txt', 'utf8'));
+            data.should.equal(fs.readFileSync(expected.hellofarm, 'utf8'));
             done();
           }));
         });
@@ -172,13 +177,13 @@ describe('gulp-find.', function () {
 
       it('Find string', function (done) {
         var file = makeFile(true);
-        var stream = replacePlugin('world', 'person');
+        var stream = findPlugin('world', 'person');
 
         stream.on('data', function (newFile) {
           should.exist(newFile);
           should.exist(newFile.contents);
 
-          String(newFile.contents).should.equal(fs.readFileSync('test/expected/helloworld.txt', 'utf8'));
+          String(newFile.contents).should.equal(fs.readFileSync(expected.helloworld, 'utf8'));
           done();
         });
 
@@ -188,7 +193,7 @@ describe('gulp-find.', function () {
 
       it('Find string with a function', function (done) {
         var file = makeFile(true);
-        var stream = replacePlugin('world', function () {
+        var stream = findPlugin('world', function () {
           return 'person';
         });
 
@@ -196,7 +201,7 @@ describe('gulp-find.', function () {
           should.exist(newFile);
           should.exist(newFile.contents);
 
-          String(newFile.contents).should.equal(fs.readFileSync('test/expected/helloworld.txt', 'utf8'));
+          String(newFile.contents).should.equal(fs.readFileSync(expected.helloworld, 'utf8'));
           done();
         });
 
@@ -213,7 +218,7 @@ describe('gulp-find.', function () {
           'duck',
           'person'
         ];
-        var stream = replacePlugin('world', function () {
+        var stream = findPlugin('world', function () {
           return replacements.shift();
         });
 
@@ -221,7 +226,7 @@ describe('gulp-find.', function () {
           should.exist(newFile);
           should.exist(newFile.contents);
 
-          String(newFile.contents).should.equal(fs.readFileSync('test/expected/hellofarm.txt', 'utf8'));
+          String(newFile.contents).should.equal(fs.readFileSync(expected.hellofarm, 'utf8'));
           done();
         });
 
@@ -235,13 +240,13 @@ describe('gulp-find.', function () {
 
       it('Find regex', function (done) {
         var file = makeFile(true);
-        var stream = replacePlugin(/world/g, 'person');
+        var stream = findPlugin(/world/g, 'person');
 
         stream.on('data', function (newFile) {
           should.exist(newFile);
           should.exist(newFile.contents);
 
-          String(newFile.contents).should.equal(fs.readFileSync('test/expected/helloworld.txt', 'utf8'));
+          String(newFile.contents).should.equal(fs.readFileSync(expected.helloworld, 'utf8'));
           done();
         });
 
@@ -252,14 +257,14 @@ describe('gulp-find.', function () {
       it('Find regex with a function', function (done) {
         var file = makeFile(true);
 
-        var stream = replacePlugin(/world/g, function () {
+        var stream = findPlugin(/world/g, function () {
           return 'person';
         });
         stream.on('data', function (newFile) {
           should.exist(newFile);
           should.exist(newFile.contents);
 
-          String(newFile.contents).should.equal(fs.readFileSync('test/expected/helloworld.txt', 'utf8'));
+          String(newFile.contents).should.equal(fs.readFileSync(expected.helloworld, 'utf8'));
           done();
         });
 
@@ -276,14 +281,15 @@ describe('gulp-find.', function () {
           'duck',
           'person'
         ];
-        var stream = replacePlugin(/world/g, function () {
+        var stream = findPlugin(/world/g, function () {
           return replacements.shift();
         });
+
         stream.on('data', function (newFile) {
           should.exist(newFile);
           should.exist(newFile.contents);
 
-          String(newFile.contents).should.equal(fs.readFileSync('test/expected/hellofarm.txt', 'utf8'));
+          String(newFile.contents).should.equal(fs.readFileSync(expected.hellofarm, 'utf8'));
           done();
         });
 
@@ -296,14 +302,15 @@ describe('gulp-find.', function () {
   });
 
   it('should trigger events on a stream', function (done) {
-    var file = new File({
-      path: 'test/fixtures/helloworld.txt',
-      cwd: 'test/',
-      base: 'test/fixtures',
-      contents: fs.readFileSync('test/fixtures/helloworld.txt')
-    });
+    //var file = new File({
+    //  path: 'test/fixtures/helloworld.txt',
+    //  cwd: 'test/',
+    //  base: 'test/fixtures',
+    //  contents: fs.readFileSync('test/fixtures/helloworld.txt')
+    //});
+    var file = makeFile(true);
 
-    var stream = replacePlugin('world', 'elephant')
+    var stream = findPlugin('world', 'elephant')
         .on('finish', function () {
           // No assertion required, we should end up here, if we don't the test will time out
           done();
