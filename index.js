@@ -3,7 +3,8 @@
 var Transform = require('readable-stream/transform');
 var rs = require('replacestream');
 
-module.exports = function (search) {
+module.exports = function (search, separator) {
+  var seperator = seperator || ','
   return new Transform({
     objectMode: true,
     transform: function (file, enc, callback) {
@@ -17,7 +18,7 @@ module.exports = function (search) {
           file.contents = file.contents.pipe(rs(search));
         } else if (file.isBuffer()) {
           result = String(file.contents).match(search) || [];
-          file.contents = new Buffer(result.join(','));
+          file.contents = new Buffer(result.join(separator));
         }
 
         return callback(null, file);
