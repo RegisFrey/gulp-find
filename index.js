@@ -16,7 +16,7 @@ module.exports = function (search) {
         if (file.isStream()) {
           file.contents = file.contents.pipe(rs(search));
         } else if (file.isBuffer()) {
-          result = String(file.contents).match(search);
+          result = String(file.contents).match(search) || [];
           file.contents = new Buffer(result.join(','));
         }
 
