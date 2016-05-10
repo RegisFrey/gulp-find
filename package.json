@@ -1,6 +1,6 @@
 {
   "name": "gulp-find",
-  "version": "0.0.9",
+  "version": "0.0.10",
   "description": "A string finder plugin for gulp",
   "main": "index.js",
   "scripts": {
